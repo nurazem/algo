@@ -11,17 +11,25 @@ class Node:
       node = node.next
     return result
 
-def reverse_list_nondestructive(head):
-  current_node = head
-  next_node = head.next
-  head.next = None
-  while next_node:
-      temp_node = next_node.next
-      next_node.next = current_node
+#Iterative
+def reverse_list_iterative(head):
+  last = None
+  current = head
 
-      new_head = Node()
-      head = head.next
-  return new_head
+  while(current is not None):
+    next_node = current.next
+    current.next = last
+    last = current
+    current = next_node
+
+  return last
+
+def reverse_list_recursive(node,last=None):
+  if node is None:
+    return last
+  next_node = node.next
+  node.next = last
+  return reverse_list_recursive(next_node, node)
 
 
 n = Node(10)
@@ -30,4 +38,5 @@ n.next.next = Node(30)
 n.next.next.next = Node(40)
 
 print(n)
-print(reverse_list_nondestructive(n))
+print reverse_list_recursive(n)
+# print(reverse_list_nondestructive(n))

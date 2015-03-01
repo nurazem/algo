@@ -18,9 +18,6 @@ def sum_of_nodes(root):
     current_nodes = next_nodes
   return result
 
-def sum_root_to_node(root):
-
-
 def tree_depth(root):
   if root == None:
     return 0
@@ -32,6 +29,18 @@ def tree_depth(root):
     return tree_depth(root.left) + 1
   else:
     return max(tree_depth(root.left), tree_depth(root.right)) + 1
+
+def sum_root_to_leaves(root, result=None):
+  if result == None: result = 0
+  if root == None:
+    return 0
+
+  result = result * 10 + root.val
+  if root.left == None and root.right == None:
+    return result
+
+  return sum_root_to_leaves(root.left, result) + sum_root_to_leaves(root.right, result)
+
 
 class TreeNode(object):
   """docstring for TreeNode"""
@@ -49,4 +58,4 @@ n.left.right.left = TreeNode(7)
 n.left.right.right = TreeNode(4)
 n.right.right = TreeNode(4)
 
-print sum_of_nodes(n)
+print sum_root_to_leaves(n)
